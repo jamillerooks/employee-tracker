@@ -5,17 +5,16 @@ USE employees_db;
 
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT,
-  department_name VARCHAR(30) NOT NULL,
+  department_name VARCHAR(30) NOT NULL UNIQUE,
   PRIMARY KEY (id)
   );
 
 CREATE TABLE roles (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  job_title VARCHAR(30) NOT NULL,
+  job_title VARCHAR(30) NOT NULL UNIQUE,
   salary DECIMAL NOT NULL,
   department_id INT NOT NULL,
-  FOREIGN KEY (department_id) 
-  REFERENCES department(id)
+  FOREIGN KEY (department_id) REFERENCES department(id)
   );
 
 CREATE TABLE employee (
@@ -24,6 +23,7 @@ CREATE TABLE employee (
   last_name VARCHAR(30) NOT NULL,
   roles_id INT NOT NULL,
   manager_id INT,
-  FOREIGN KEY (roles_id) 
-  REFERENCES roles (id)
+  FOREIGN KEY (roles_id) REFERENCES roles (id),
+  FOREIGN KEY (manager_id) REFERENCES employee (id)
   );
+
